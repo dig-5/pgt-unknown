@@ -1,0 +1,20 @@
+/* Transiciones de Pantalla Base */
+.view-section { display: none; }
+.view-section.active { display: block; animation: fadeIn 0.2s ease-in-out; }
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Checkbox personalizado y Zoom de imágenes */
+.custom-checkbox { width: 1.5rem; height: 1.5rem; accent-color: #3b82f6; cursor: pointer; }
+.scale-200 { transform: scale(2); }
+
+/* Animaciones de Desvanecimiento (Para bloques y botones) */
+.fade-out {
+  opacity: 0 !important;
+  transform: scale(0.95);
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
