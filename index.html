@@ -4,10 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gestión de Paquetes - PGT</title>
-  <!-- Favicon para el logo del título -->
   <link rel="icon" type="image/png" href="favicon.png">
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- CSS Externo -->
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="bg-gray-900 text-gray-100 min-h-screen font-sans">
@@ -26,11 +24,12 @@
   <!-- Sidebar -->
   <div id="sidebar" class="fixed inset-y-0 left-0 w-64 bg-gray-900 border-r border-gray-700 transform -translate-x-full transition-transform duration-300 z-50">
     <div class="p-6 border-b border-gray-700 flex justify-between items-center">
-      <span class="text-xl font-bold italic">PTG UNKNOWN</span>
+      <span class="text-xl font-bold italic">PGT UNKNOWN</span>
       <button id="closeMenuBtn" class="text-gray-400 hover:text-white">&times;</button>
     </div>
     <nav class="p-4 space-y-3">
       <button onclick="navigate('inicio')" class="w-full text-left p-3 border border-gray-600 rounded-lg hover:bg-gray-800 transition">Inicio</button>
+      <button onclick="navigate('unknowns')" class="w-full text-left p-3 border border-gray-600 rounded-lg hover:bg-gray-800 transition">Unknowns</button>
       <button onclick="navigate('sin-ubicar')" class="w-full text-left p-3 border border-gray-600 rounded-lg hover:bg-gray-800 transition">Sin Ubicar</button>
       <button onclick="navigate('ubicados')" class="w-full text-left p-3 border border-gray-600 rounded-lg hover:bg-gray-800 transition">Ubicados</button>
       <button onclick="navigate('finalizados')" class="w-full text-left p-3 border border-gray-600 rounded-lg hover:bg-gray-800 transition">Finalizados</button>
@@ -39,47 +38,35 @@
   </div>
   <div id="sidebarOverlay" class="fixed inset-0 bg-black bg-opacity-50 hidden z-40"></div>
 
-  <!-- VISOR DE IMÁGENES -->
+  <!-- Visor de Imágenes -->
   <div id="imageViewer" class="fixed inset-0 z-50 bg-black bg-opacity-90 hidden flex-col items-center justify-center p-4 overflow-hidden" onclick="cerrarVisorImagen(true)">
     <button class="absolute top-4 right-4 text-white text-4xl hover:text-gray-300 z-[60]">&times;</button>
     <img id="viewerImg" class="max-w-full max-h-full object-contain cursor-zoom-in transition-transform duration-300" onclick="event.stopPropagation(); toggleZoom(this)">
   </div>
 
-  <!-- CONTENEDOR DE SECCIONES -->
   <main class="p-4 max-w-7xl mx-auto">
-
     <!-- INICIO -->
     <section id="inicio" class="view-section active text-center mt-20">
       <p class="text-xl italic text-gray-400">"Página de Prueba para los Unknown"</p>
     </section>
 
-    <!-- SIN UBICAR -->
-    <section id="sin-ubicar" class="view-section">
+    <!-- UNKNOWNS (Antes Sin Ubicar) -->
+    <section id="unknowns" class="view-section">
       <div class="mb-6 bg-gray-800 p-4 rounded-xl border border-gray-700">
         <div class="mb-4">
-          <input type="text" id="searchInput" placeholder="🔍 Buscar por tracking, casilla, courier..." class="w-full bg-gray-900 border border-gray-600 rounded-lg p-3 text-white focus:outline-none">
+          <input type="text" id="searchInputUnk" placeholder="🔍 Buscar por tracking, casilla, courier..." class="w-full bg-gray-900 border border-gray-600 rounded-lg p-3 text-white focus:outline-none">
         </div>
         <div class="flex flex-col md:flex-row gap-4 justify-between items-start w-full">
           <div class="w-full md:w-1/3 flex flex-col gap-2">
             <label class="block text-sm text-gray-400">Ubicación:</label>
-            <select id="filtroUbicacion" class="w-full bg-gray-900 border border-gray-600 rounded-lg p-3 text-white focus:outline-none">
+            <select id="filtroUbicacionUnk" class="w-full bg-gray-900 border border-gray-600 rounded-lg p-3 text-white focus:outline-none">
               <option value="">Seleccionar</option>
-              <option value="B PISO">B PISO</option>
-              <option value="PALLET PISO">PALLET PISO</option>
-              <option value="PALLET PISO 2">PALLET PISO 2</option>
-              <option value="013">013</option>
-              <option value="622">622</option>
-              <option value="674">674</option>
-              <option value="685">685</option>
-              <option value="736">736</option>
-              <option value="767">767</option>
-              <option value="790">790</option>
-              <option value="838">838</option>
-              <option value="896">896</option>
-              <option value="962">962</option>
-              <option value="Retenido">Retenido</option>
+              <option value="B PISO">B PISO</option><option value="PALLET PISO">PALLET PISO</option><option value="PALLET PISO 2">PALLET PISO 2</option>
+              <option value="013">013</option><option value="622">622</option><option value="674">674</option><option value="685">685</option>
+              <option value="736">736</option><option value="767">767</option><option value="790">790</option><option value="838">838</option><option value="896">896</option>
+              <option value="962">962</option><option value="Retenido">Retenido</option>
             </select>
-            <button id="btnLimpiarFiltros" class="bg-gray-700 hover:bg-gray-600 border border-gray-500 rounded-lg px-4 py-2 text-base transition self-start md:self-auto">Limpiar Filtro</button>
+            <button id="btnLimpiarFiltrosUnk" class="bg-gray-700 hover:bg-gray-600 border border-gray-500 rounded-lg px-4 py-2 text-base transition self-start md:self-auto">Limpiar Filtro</button>
           </div>
           <div class="flex w-full md:w-auto mt-4 md:mt-0 items-end justify-end">
              <button id="btnToggleMulti" class="w-full md:w-auto bg-gray-700 hover:bg-gray-600 border border-gray-500 rounded-lg px-6 py-3 text-base transition">Selección múltiple</button>
@@ -87,47 +74,26 @@
         </div>
       </div>
       
-      <!-- Controles Múltiples -->
       <div id="multiActionsHeader" class="hidden bg-gray-800 p-4 rounded-xl border border-gray-700 mb-4 flex flex-col sm:flex-row gap-4 items-center justify-between">
           <div class="flex items-center gap-3 w-full sm:w-auto">
               <input type="checkbox" id="chkSelectAll" class="custom-checkbox">
               <label for="chkSelectAll" class="text-base text-white cursor-pointer select-none">Seleccionar todo</label>
           </div>
           <div class="flex gap-2 w-full sm:w-auto">
-            <button onclick="procesarMultiples('ListoProcesar')" class="flex-1 sm:flex-none whitespace-nowrap bg-transparent border border-gray-400 hover:bg-gray-700 text-white rounded-lg px-6 py-3 text-base transition">Listo p/ procesar</button>
-            <button onclick="procesarMultiples('Procesado')" class="flex-1 sm:flex-none bg-blue-600 hover:bg-blue-500 text-white rounded-lg px-6 py-3 text-base transition">Procesar</button>
+            <button onclick="procesarMultiples('SinUbicar')" class="flex-1 sm:flex-none whitespace-nowrap bg-transparent border border-gray-400 hover:bg-gray-700 text-white rounded-lg px-6 py-3 text-base transition">Sin Ubicar</button>
+            <button onclick="procesarMultiples('Listo')" class="flex-1 sm:flex-none bg-blue-600 hover:bg-blue-500 text-white rounded-lg px-6 py-3 text-base transition">Listo</button>
           </div>
       </div>
 
-      <h2 class="text-sm text-gray-400 mb-3" id="countSinUbicar">Unknown (0)</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5" id="gridSinUbicar"></div>
-      <p id="noResultsMsgSU" class="hidden text-center text-gray-400 mt-10 text-lg">No se encontró ningún paquete</p>
+      <h2 class="text-sm text-gray-400 mb-3" id="countUnknowns">Unknown (0)</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5" id="gridUnknowns"></div>
+      <p id="noResultsMsgUnk" class="hidden text-center text-gray-400 mt-10 text-lg">No se encontró ningún paquete</p>
     </section>
 
     <!-- UBICADOS -->
     <section id="ubicados" class="view-section">
       <div class="mb-6 bg-gray-800 p-4 rounded-xl border border-gray-700">
-        <div class="mb-4">
-          <input type="text" id="searchInputUbi" placeholder="🔍 Buscar en ubicados..." class="w-full bg-gray-900 border border-gray-600 rounded-lg p-3 text-white focus:outline-none">
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label class="block text-sm text-gray-400 mb-1">Estado:</label>
-            <select id="filtroEstadoUbi" class="w-full bg-gray-900 border border-gray-600 rounded-lg p-3 text-white focus:outline-none">
-              <option value="">Seleccionar</option>
-              <option value="ListoProcesar">Listo p/ procesar</option>
-              <option value="Procesado">Procesado</option>
-            </select>
-          </div>
-          <div>
-            <label class="block text-sm text-gray-400 mb-1">Contestado:</label>
-            <select id="filtroContestadoUbi" class="w-full bg-gray-900 border border-gray-600 rounded-lg p-3 text-white focus:outline-none">
-              <option value="">Seleccionar</option>
-              <option value="true">Sí</option>
-              <option value="false">No</option>
-            </select>
-          </div>
-        </div>
+        <input type="text" id="searchInputUbi" placeholder="🔍 Buscar en ubicados..." class="w-full bg-gray-900 border border-gray-600 rounded-lg p-3 text-white focus:outline-none">
       </div>
       <h2 class="text-sm text-gray-400 mb-3" id="countUbicados">Unknown (0)</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-5" id="gridUbicados"></div>
@@ -144,16 +110,6 @@
       <p id="noResultsMsgFin" class="hidden text-center text-gray-400 mt-10 text-lg">No se encontró ningún paquete</p>
     </section>
 
-    <!-- DETALLE PAQUETE -->
-    <section id="detalle-paquete" class="view-section">
-      <!-- El botón VOLVER usa history.back() ahora -->
-      <button onclick="history.back()" class="mb-4 text-gray-300 hover:text-white flex items-center font-bold">
-        <span class="mr-2 text-xl">&larr;</span> VOLVER
-      </button>
-      <div class="max-w-xl mx-auto bg-gray-800 border border-gray-700 rounded-2xl p-6 shadow-lg flex flex-col h-full" id="detalleContenedor">
-      </div>
-    </section>
-
     <!-- CREAR PAQUETE -->
     <section id="crear" class="view-section">
       <div class="max-w-xl mx-auto bg-gray-800 border border-gray-700 rounded-2xl p-6 shadow-lg">
@@ -163,9 +119,11 @@
             <label class="block text-sm text-gray-400 mb-1">Courier *</label>
             <select id="inputCourier" required class="w-full bg-gray-900 border border-gray-600 rounded-lg p-3 text-white focus:outline-none">
               <option value="">Seleccionar</option>
-              <option value="Ubox">Ubox</option><option value="Flashbox">Flashbox</option><option value="RoyalBox">RoyalBox</option>
+              <option value="Ubox">Ubox</option><option value="Flashbox">Flashbox</option><option value="Royalbox">Royalbox</option>
               <option value="PGT">PGT</option><option value="Bubbabox">Bubbabox</option><option value="Clickbox">Clickbox</option>
               <option value="Rayo">Rayo</option><option value="Ultrabox">Ultrabox</option><option value="Fixo">Fixo</option>
+              <option value="MHImport">MHImport</option><option value="OnBoard">OnBoard</option><option value="CMG">CMG</option>
+              <option value="Novabox">Novabox</option><option value="ZumExpress">ZumExpress</option>
             </select>
           </div>
           <div><label class="block text-sm text-gray-400 mb-1">Casilla *</label><input type="text" id="inputCasilla" required class="w-full bg-gray-900 border border-gray-600 rounded-lg p-3 text-white focus:outline-none"></div>
@@ -191,9 +149,40 @@
         </form>
       </div>
     </section>
+
+    <!-- NUEVA PANTALLA: SIN UBICAR -->
+    <section id="sin-ubicar" class="view-section">
+      <div class="mb-6 bg-gray-800 p-4 rounded-xl border border-gray-700 flex flex-col md:flex-row gap-4">
+        <div class="flex-1">
+          <input type="text" id="searchInputSU" placeholder="🔍 Buscar por tracking, casilla..." class="w-full bg-gray-900 border border-gray-600 rounded-lg p-3 text-white focus:outline-none">
+        </div>
+        <div class="w-full md:w-1/3">
+          <select id="filtroCourierSU" class="w-full bg-gray-900 border border-gray-600 rounded-lg p-3 text-white focus:outline-none">
+            <option value="">Filtrar Courier (Todos)</option>
+            <option value="Ubox">Ubox</option><option value="Flashbox">Flashbox</option><option value="Royalbox">Royalbox</option>
+            <option value="PGT">PGT</option><option value="Bubbabox">Bubbabox</option><option value="Clickbox">Clickbox</option>
+            <option value="Rayo">Rayo</option><option value="Ultrabox">Ultrabox</option><option value="Fixo">Fixo</option>
+            <option value="MHImport">MHImport</option><option value="OnBoard">OnBoard</option><option value="CMG">CMG</option>
+            <option value="Novabox">Novabox</option><option value="ZumExpress">ZumExpress</option>
+          </select>
+        </div>
+      </div>
+      <h2 class="text-sm text-gray-400 mb-3" id="countSinUbicar">Unknown (0)</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5" id="gridSinUbicar"></div>
+      <p id="noResultsMsgSU" class="hidden text-center text-gray-400 mt-10 text-lg">No se encontró ningún paquete</p>
+    </section>
+
+    <!-- DETALLE PAQUETE -->
+    <section id="detalle-paquete" class="view-section">
+      <button onclick="history.back()" class="mb-4 text-gray-300 hover:text-white flex items-center font-bold">
+        <span class="mr-2 text-xl">&larr;</span> VOLVER
+      </button>
+      <div class="max-w-xl mx-auto bg-gray-800 border border-gray-700 rounded-2xl p-6 shadow-lg flex flex-col h-full" id="detalleContenedor">
+      </div>
+    </section>
+
   </main>
 
-  <!-- JS Externos -->
   <script src="js/app.js"></script>
   <script type="module" src="js/firebase.js"></script>
 </body>
