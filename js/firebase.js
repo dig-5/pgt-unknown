@@ -89,7 +89,7 @@ window.renderUnknowns = function() {
         <p><span class="text-gray-400">Ubicación:</span> ${p.Ubicacion}</p>
       </div>
       <div class="mt-auto flex gap-2 ${isMultiMode ? 'hidden' : ''}">
-        <button class="flex-1 bg-transparent border border-gray-400 hover:bg-gray-700 rounded-lg py-3 text-base transition" onclick="actualizarEstadoAnimado(event, '${p.id}', 'SinUbicar', 'card-unk-${p.id}')">Sin Ubicar</button>
+        <button class="flex-1 bg-transparent border border-gray-400 hover:bg-gray-700 rounded-lg py-3 text-base transition" onclick="actualizarEstadoAnimado(event, '${p.id}', 'SinUbicar', 'card-unk-${p.id}')">No Encontrado</button>
         <button class="flex-1 bg-blue-600 hover:bg-blue-500 text-white rounded-lg py-3 text-base transition" onclick="actualizarEstadoAnimado(event, '${p.id}', 'Listo', 'card-unk-${p.id}')">Listo</button>
       </div>
     `;
@@ -273,7 +273,7 @@ window.abrirDetalle = function(p, vistaOrigen) {
   let fechaStr = "N/A";
   if (p.FechaCreacion && p.FechaCreacion.toDate) fechaStr = p.FechaCreacion.toDate().toLocaleString('es-ES', { dateStyle: 'short', timeStyle: 'short' });
   
-  let estadoTxt = p.Estado === 'Desconocido' ? 'Desconocido' : p.Estado === 'SinUbicar' ? 'Sin Ubicar' : 'Listo';
+  let estadoTxt = p.Estado === 'Desconocido' ? 'Desconocido' : p.Estado === 'SinUbicar' ? 'No Encontrado' : 'Listo';
   if (p.Contestado) estadoTxt = 'Finalizado';
   const contestadoTxt = p.Contestado ? 'Sí' : 'No';
 
@@ -297,7 +297,7 @@ window.abrirDetalle = function(p, vistaOrigen) {
   if (vistaOrigen === 'unknowns') {
     htmlBotones = `
       <div class="flex gap-4 mt-auto">
-        <button onclick="actualizarDesdeDetalle('${p.id}', 'SinUbicar')" class="flex-1 bg-transparent border border-gray-400 hover:bg-gray-700 text-white rounded-lg py-3.5 text-base font-semibold transition">Sin Ubicar</button>
+        <button onclick="actualizarDesdeDetalle('${p.id}', 'SinUbicar')" class="flex-1 bg-transparent border border-gray-400 hover:bg-gray-700 text-white rounded-lg py-3.5 text-base font-semibold transition">No Encontrado</button>
         <button onclick="actualizarDesdeDetalle('${p.id}', 'Listo')" class="flex-1 bg-blue-600 hover:bg-blue-500 text-white rounded-lg py-3.5 text-base font-semibold transition">Listo</button>
       </div>`;
   } else if (vistaOrigen === 'sin-ubicar') {
