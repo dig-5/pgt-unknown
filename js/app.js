@@ -20,7 +20,7 @@ window.navigate = function(sectionId, pushHistory = true) {
   const titulos = { 
     'inicio': 'INICIO', 'unknowns': 'UNKNOWNS', 'ubicados': 'UBICADOS', 
     'finalizados': 'FINALIZADOS', 'crear': 'CREAR PAQUETE', 
-    'sin-ubicar': 'SIN UBICAR', 'detalle-paquete': 'DETALLE DE PAQUETE' 
+    'sin-ubicar': 'NO ENCONTRADOS', 'detalle-paquete': 'DETALLE DE PAQUETE' 
   };
   headerTitle.textContent = titulos[sectionId] || '';
   
